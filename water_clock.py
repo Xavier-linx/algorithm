@@ -12,38 +12,56 @@ output:
 """
 
 
-# import sys
+import sys
 
-# n = int(input())
-# hs = list(map(int, input().split()))
+n = int(input())
+hs = list(map(int, input().split()))
 
-# best = hs[0]
+best = hs[0]
 
-# sum = 1
-# res = 0
-# for i in hs[1:]:
-#     if i <= best:
-#         sum += 1
-#     else:
-#         res += sum * best
-#         sum = 1
-#         best = i
+sum = 1
+res = 0
+for i in hs[1:]:
+    if i <= best:
+        sum += 1
+    else:
+        res += sum * best
+        sum = 1
+        best = i
 
-# if sum != 1:
-#     if best == hs[n-1]:
-#         res += best * (sum - 1)
-#     else:
-#         sum = 0
-#         best = hs[n-1]
-#         for i in hs[:sum:-1]:
-#             if i <= best:
-#                 sum += 1
-#             else:
-#                 res += sum * best
-#                 sum = 1
-#                 best = i
+if sum != 1:
+    if best == hs[n-1]:
+        res += best * (sum - 1)
+    else:
+        sum = 0
+        best = hs[n-1]
+        for i in hs[:sum:-1]:
+            if i <= best:
+                sum += 1
+            else:
+                res += sum * best
+                sum = 1
+                best = i
 
-# print(res)
+result = 0
+left = 0
+right = n - 1
+left_v = hs[left]
+right_v = hs[right]
+
+while left < right:
+    if left_v < right_v:
+        result  += left_v
+        left += 1
+        left_v = hs[left]
+    else:
+        result += right_v
+        right += 1
+        right_v = hs[right]
+
+
+
+print(result)
 
 
 
