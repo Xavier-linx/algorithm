@@ -1,0 +1,87 @@
+# 2 3
+# 5 100
+# 20 15 10
+# --
+# 20
+
+
+import sys
+import math
+import heapq
+
+n, m = map(int, input().split())
+a = list(map(int, input().split()))
+b = list(map(int, input().split()))
+
+b = sorted(b, reverse=True)
+heap = []
+for v in a:
+    heapq.heappush(heap, (v, 1, v))
+k = [1 for _ in range(n+1)]
+
+res = 0
+
+for bi in b:
+    value, stones, source = heapq.heappop(heap)
+    if value >= bi:
+        break
+    res += (bi - value)
+
+    value = source * (stones+1)
+    heapq.heappush(heap, (value, stones+1, source))
+
+print(res)
+            
+# =================
+# timeout
+# import sys
+# import math
+
+# n, m = map(int, input().split())
+# a = list(map(int, input().split()))
+# b = list(map(int, input().split()))
+# # print(a)
+# a = sorted(a + [math.inf])
+# b = sorted(b, reverse=True)
+# k = [1 for _ in range(n+1)]
+# use = [1 for _ in range(m+1)]
+# # dp = [[0]*(n+1) for _ in range(m+1)]
+# dp = [0 for _ in range(n)]
+
+# res = 0
+# max_v = 0
+# max_lt = 0
+
+# # stone person 
+# def get_max(bi, j):
+#     vaule = bi - k[j]*a[j]
+#     # print(b[i], k[j], a[j])
+#     return max(0, vaule)
+
+# # for bi in range(m):
+# for bi in b:
+#     idx = 0
+#     max_lt = 0
+#     max_nex = 0
+#     for j in range(n):
+#         # if use[j]:
+#         #     continue
+#         # dp[j] = get_max(bi, j)
+#         max_v = get_max(bi, j)
+#         if max_v > max_lt:
+#             max_lt = max_v
+#             idx = j
+#             if k[idx] == 1:
+#                 break
+#         # max = get_max(i, j)
+#         # max_nex = get_max(i+1, j)
+#         # if max_nex > max:
+#         #     k[i+1] 
+#     # idx, max_v = max(enumerate(dp), key=lambda x: x[1])
+#     # idx = dp.index(max_v)
+#     k[idx] += 1
+#     res += max_lt
+#     # print(max_lt, a[idx])
+
+# print(res)
+            
